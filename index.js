@@ -6,10 +6,10 @@ const Person = require('./models/person')
 
 const app = express()
 
-app.use(express.static('build'))
+app.use(express.static('build'));
 app.use(bodyParser.json());
-app.use(morgan('tiny'))
-app.use(cors())
+app.use(morgan('tiny'));
+app.use(cors());
 
 
 // Working
@@ -73,18 +73,18 @@ app.delete('/api/persons/:id', (request, response, next) => {
 app.post('/api/persons/', (request, response, next) => {
   const person = request.body;
 
-    const newPerson = new Person({
-      name: person.name,
-      number: person.number
-    })
+  const newPerson = new Person({
+    name: person.name,
+    number: person.number
+  })
 
-    newPerson.save()
-      .then(savedPerson => {
-        response.json(savedPerson.toJSON());
-      })
-      .catch(error => {
-        next(error)
-      });
+  newPerson.save()
+    .then(savedPerson => {
+      response.json(savedPerson.toJSON());
+    })
+    .catch(error => {
+      next(error)
+    });
 })
 
 app.use((error, request, response, next) => {
